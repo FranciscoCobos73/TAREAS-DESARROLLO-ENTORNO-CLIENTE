@@ -1,0 +1,232 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 4. Tarea: Calculadora y Bucles en JavaScript</title>
+    <!-- Enlace a Bootstrap 5 desde CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="mb-4">Calculadora y Bucles en JavaScript</h1>
+
+        <!-- 2 Inputs para introducir los numeros y guardarlos con su id correspondiente -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="numero1" class="form-label">Número 1:</label>
+                <input type="number" id="numero1" class="form-control" placeholder="Introduce el primer número">
+            </div>
+            <div class="col-md-6">
+                <label for="numero2" class="form-label">Número 2:</label>
+                <input type="number" id="numero2" class="form-control" placeholder="Introduce el segundo número">
+            </div>
+        </div>
+
+        <!-- Botones para operaciones basicas y llamada a funciones -->
+        <div class="d-flex flex-wrap gap-2 mb-3">
+            <button class="btn btn-primary" onclick="sumar()">Sumar +</button>  
+            <button class="btn btn-primary" onclick="restar()">Restar -</button>
+            <button class="btn btn-primary" onclick="multiplicar()">Multiplicar *</button>
+            <button class="btn btn-primary" onclick="dividir()">Dividir /</button>
+            <button class="btn btn-primary" onclick="potencia()">Potencia **</button>
+            <button class="btn btn-primary" onclick="modulo()">Módulo %</button>
+        </div>
+
+        <!-- Botones de bucles (formato texto) y llamada a funciones -->
+        <div class="d-flex flex-wrap gap-2 mb-3">
+            <button class="btn btn-success" onclick="bucle_for()">For (texto)</button>
+            <button class="btn btn-success" onclick="bucle_while()">While (texto)</button>
+            <button class="btn btn-success" onclick="bucle_dowhile()">Do...While (texto)</button>
+        </div>
+
+        <!-- Botones de bucles (formato badges) y llamada a funciones -->
+        <div class="d-flex flex-wrap gap-2 mb-3">
+            <button class="btn btn-warning" onclick="bucle_forbadges()">For (badges)</button>
+            <button class="btn btn-warning" onclick="bucle_whilebadges()">While (badges)</button>
+            <button class="btn btn-warning" onclick="bucle_dowhilebadges()">Do...While (badges)</button>
+        </div>
+        
+        <!-- Botón adicional para activar modo nocturno manual -->
+        <div class="mt-3">
+            <button class="btn btn-dark" onclick="modoNocturno()"> Activar modo nocturno</button>
+        </div>
+
+        <!-- Botón adicional para mostrar mensaje gracioso manualmente -->
+        <div class="mt-3">
+            <button class="btn btn-info" onclick="mensajeGracioso()">Mostrar frase graciosa</button>
+        </div>
+
+        <!-- Área para mostrar resultado -->
+        <div class="alert alert-info" id="resultado">Aquí aparecerá el resultado</div>
+
+    </div>
+
+    <script>
+        // Elemento donde se mostrará el resultado
+        const resultado = document.getElementById("resultado");
+
+        // Funciones para obtener los valores de los inputs.
+        // Si no se introduce ningún valor, se toma 0 por defecto
+        function getNumero1() {
+            return Number(document.getElementById("numero1").value) || 0;
+        }
+
+        function getNumero2() {
+            return Number(document.getElementById("numero2").value) || 0;
+        }
+
+        // Operaciones básicas  
+        function sumar() {
+            let n1 = getNumero1();
+            let n2 = getNumero2();
+            let res = n1 + n2;
+            resultado.innerHTML = `<strong>Resultado de la suma:</strong> ${res}`; // Muestra el resultado en el div resultado
+        }
+
+        function restar() {
+            let n1 = getNumero1();
+            let n2 = getNumero2();
+            let res = n1 - n2;
+            resultado.innerHTML = `<strong>Resultado de la resta:</strong> ${res}`; // Muestra el resultado en el div resultado
+        }
+
+        function multiplicar() {
+            let n1 = getNumero1();
+            let n2 = getNumero2();
+            let res = n1 * n2;
+            resultado.innerHTML = `<strong>Resultado de la multiplicación:</strong> ${res}`; // Muestra el resultado en el div resultado
+        }
+
+        function dividir() {
+            let n1 = getNumero1();
+            let n2 = getNumero2();
+            // Manejo de división por cero
+            if (n2 === 0) {
+                resultado.innerHTML = "Error: no se puede dividir entre 0.";
+            } else {
+                let res = n1 / n2;
+                resultado.innerHTML = `<strong>Resultado de la división:</strong> ${res}`; // Muestra el resultado en el div resultado
+            }
+        }
+
+        function potencia() {
+            let n1 = getNumero1();
+            let n2 = getNumero2();
+            let res = n1 ** n2;
+            resultado.innerHTML = `<strong>Resultado de la potencia:</strong> ${res}`; // Muestra el resultado en el div resultado
+        }
+
+        function modulo() {
+            let n1 = getNumero1();
+            let n2 = getNumero2();
+            let res = n1 % n2;
+            resultado.innerHTML = `<strong>Resto de los dos números:</strong> ${res}`; // Muestra el resultado en el div resultado
+        }
+
+        // --- Bucles con texto ---
+        function bucle_for() {
+            let n1 = getNumero1();
+            let salida = ""; // Variable para mostrar el resultado
+
+            for (let i = 1; i <= n1; i++) {
+                salida += `Repetición número: ${i} <br>`;
+            }
+
+            resultado.innerHTML = `<strong>Resultado del bucle for(texto):</strong><br>${salida}`; // Muestra el resultado en el div resultado
+        }
+
+        function bucle_while() {
+            let n1 = getNumero1();
+            let salida = ""; // Variable para mostrar el resultado
+            let contador = 1; // Contador inicializado en 1 para que empiece desde 1
+
+            while (contador <= n1) {
+                salida += `Repetición número: ${contador} <br>`;
+                contador++;
+            }
+
+            resultado.innerHTML = `<strong>Resultado del bucle while(texto):</strong><br>${salida}`; // Muestra el resultado en el div resultado
+        }
+
+        function bucle_dowhile() {
+            let n1 = getNumero1();
+            let salida = ""; // Variable para mostrar el resultado
+            let numero = 1; // Contador inicializado en 1 para que empiece desde 1
+
+            do {
+                salida += `Repetición número: ${numero} <br>`;
+                numero++;
+            } while (numero <= n1);
+
+            resultado.innerHTML = `<strong>Resultado del bucle do while(texto):</strong><br>${salida}`; // Muestra el resultado en el div resultado
+        }
+
+        // --- Bucles con badges ---
+        function bucle_forbadges() {
+            let n1 = getNumero1();
+            let salida = ""; // Variable para mostrar el resultado
+
+            for (let i = 1; i <= n1; i++) {
+                salida += `<span class="badge bg-secondary me-1">#${i}</span>`; // Usamos clases de Bootstrap para los badges
+            }
+
+            resultado.innerHTML = `<strong>Resultado del bucle for(badges):</strong><br>${salida}`; // Muestra el resultado en el div resultado
+        }
+
+        function bucle_whilebadges() {
+            let n1 = getNumero1();
+            let salida = ""; // Variable para mostrar el resultado
+            let contador = 1; // Contador inicializado en 1 para que empiece desde 1
+
+            while (contador <= n1) {
+                salida += `<span class="badge bg-secondary me-1">#${contador}</span>`; // Usamos clases de Bootstrap para los badges
+                contador++;
+            }
+
+            resultado.innerHTML = `<strong>Resultado del bucle while(badges):</strong><br>${salida}`; // Muestra el resultado en el div resultado
+        }
+
+        function bucle_dowhilebadges() {
+            let n1 = getNumero1();
+            let salida = ""; // Variable para mostrar el resultado
+            let numero = 1; // Contador inicializado en 1 para que empiece desde 1
+
+            do {
+                salida += `<span class="badge bg-secondary me-1">#${numero}</span>`; // Usamos clases de Bootstrap para los badges
+                numero++;
+            } while (numero <= n1); 
+
+            resultado.innerHTML = `<strong>Resultado del bucle do while(badges):</strong><br>${salida}`; // Muestra el resultado en el div resultado
+        }
+
+        /* --------------------------------------------------
+            NUEVAS FUNCIONALIDADES AÑADIDAS AL FINAL
+        -------------------------------------------------- */
+
+        // Modo nocturno
+        function modoNocturno() {
+            document.body.classList.toggle("bg-dark"); // Cambia el fondo del body
+            document.body.classList.toggle("text-light"); // Cambia el color del texto del body
+            resultado.classList.toggle("alert-info"); // Cambia el color del alert del resultado
+            resultado.classList.toggle("alert-secondary"); // Cambia el color del alert del resultado
+        }
+
+        // Mensajes graciosos aleatorios
+        function mensajeGracioso() {
+            const frases = [ // Array de frases graciosas
+                "😎 ¡Operación completada sin errores (de momento)!",
+                "🧮 Calculadora feliz, usuario feliz.",
+                "🤖 El JavaScript aprueba esta operación.",
+                "🔥 ¡Matemáticamente impecable!",
+                "💪 No todos los héroes llevan capa, algunos suman y restan.",
+                "😜 ¡Los números te respetan!"
+            ];
+            const frase = frases[Math.floor(Math.random() * frases.length)]; // Selecciona una frase aleatoria
+            resultado.innerHTML = frase; // Muestra la frase en el div resultado
+        }
+
+    </script>
+</body>
+</html>
